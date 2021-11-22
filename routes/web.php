@@ -19,9 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DashboardController::class, 'home'])->name('home');
 
 Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 
@@ -57,5 +55,7 @@ Route::get('/riwayat-bimbingan/mahasiswa', [BimbinganController::class, 'riwayat
 Route::get('/riwayat-bimbingan/dosen', [BimbinganController::class, 'riwayat_bimbingan_dosen'])->name('bimbingan.riwayat-bimbingan-dosen');
 
 Route::get('/monitoring-bimbingan', [BimbinganController::class, 'monitoring_bimbingan'])->name('bimbingan.monitoring-bimbingan');
+
+Route::get('/monitoring-bimbingan/detail/{id}', [BimbinganController::class, 'show_monitoring_bimbingan'])->name('bimbingan.show-monitoring-bimbingan');
 
 require __DIR__.'/auth.php';

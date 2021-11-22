@@ -233,4 +233,13 @@ class BimbinganController extends Controller
             'items' => $items
         ]);
     }
+
+    public function show_monitoring_bimbingan($id)
+    {
+        $item =  Bimbingan::findOrFail($id);
+
+        return view('pages.admin.monitoring-bimbingan.show', [
+            'item' => $item
+        ]);
+    }
 }

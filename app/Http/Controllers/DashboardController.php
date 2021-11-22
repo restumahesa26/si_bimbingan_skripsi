@@ -18,4 +18,9 @@ class DashboardController extends Controller
             'mahasiswa' => $mahasiswa, 'dosen' => $dosen, 'dosens' => $dosens
         ]);
     }
+
+    public function home()
+    {
+        return view('pages.home');
+    }
 }

@@ -4,7 +4,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Monitoring Mahasiswa</h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="./">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Monitoring Mahasiswa</li>
     </ol>
 </div>
@@ -34,7 +34,7 @@
                         <td>{{ $item->pembimbing_pendamping->dosen->nama }}</td>
                         <td>{{ $item->status }}</td>
                         <td>
-                            <a href="" class="btn btn-sm btn-primary">Detail</a>
+                            <a href="{{ route('bimbingan.show-monitoring-bimbingan', $item->id) }}" class="btn btn-sm btn-primary">Detail</a>
                         </td>
                     </tr>
                     @empty

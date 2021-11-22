@@ -36,8 +36,8 @@
             </div>
         </div>
     </li>
-    <li class="nav-item @if ( Route::is('bimbingan.monitoring-bimbingan')) active @endif">
-        <a class="nav-link" href="{{ route('bimbingan.monitoring-bimbingan') }}">
+    <li class="nav-item @if ( Route::is('bimbingan.monitoring-bimbingan') || Route::is('bimbingan.show-monitoring-bimbingan') ) active @endif">
+        <a class="nav-link" href="{{ route('bimbingan.monitoring-bimbingan')}}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Monitoring Bimbingan</span></a>
     </li>
