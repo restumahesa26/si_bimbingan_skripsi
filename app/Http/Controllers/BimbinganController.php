@@ -49,9 +49,15 @@ class BimbinganController extends Controller
 
         $items2 = PembimbingPendamping::where('dosen_id', Auth::user()->id)->where('status_persetujuan', '0')->get();
 
-        return view('pages.dosen.konfirmasi-persetujuan.index', [
-            'items' => $items, 'items2' => $items2
-        ]);
+        if ($items->count() > 0 || $items2->count() > 0) {
+            return view('pages.dosen.konfirmasi-persetujuan.index', [
+                'items' => $items, 'items2' => $items2
+            ]);
+        }else {
+            return view('pages.dosen.konfirmasi-persetujuan.index', [
+                'items' => NULL, 'items2' => NULL
+            ]);
+        }
     }
 
     public function konfirmasi_persetujuan($id, $tipe)

@@ -4,19 +4,12 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Konfirmasi Persetujuan</h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item active" aria-current="page">Konfirmasi Persetujuan</li>
     </ol>
 </div>
 
-@if ($items == NULL && $items2 == NULL)
-    <div class="card">
-        <div class="card-body">
-            <h5>Tidak ada yang perlu dikonfirmasi</h5>
-        </div>
-    </div>
-@endif
-
+@if ($items || $items2)
 @foreach ($items as $item)
 <div class="card w-50">
     <div class="card-body">
@@ -98,5 +91,14 @@
     </div>
 </div>
 @endforeach
+@else
+    <div class="card">
+        <div class="card-body">
+            <h4>Tidak ada konfirmasi persetujuan</h4>
+        </div>
+    </div>
+@endif
+
+
 
 @endsection

@@ -1,9 +1,3 @@
-@font-face {
-    font-family: Nunito;
-    src: url(../font/Nunito-Regular.ttf);
-    src: url(../font/Nunito-Regular.ttf) format('ttf'), url(../font/Nunito-Regular.ttf) format('truetype')
-}
-
 html {
     position: relative;
     min-height: 100%;
@@ -11,7 +5,8 @@ html {
 }
 
 body {
-    height: 100%
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
 }
 
 a:focus {
@@ -143,9 +138,9 @@ a:focus {
 }
 
 .bg-gradient-primary {
-    background-color: #6777ef;
-    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #6777ef), to(#303f9f));
-    background-image: linear-gradient(180deg, #6777ef 10%, #303f9f 100%);
+    background-color: #0F2C67;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(10%, #0F2C67), to(#303f9f));
+    background-image: linear-gradient(180deg, #0F2C67 10%, #303f9f 100%);
     background-size: cover
 }
 
@@ -455,7 +450,7 @@ a:focus {
 }
 
 .topbar #sidebarToggleTop:hover {
-    background-color: #fafafa
+    background-color: #396EB0
 }
 
 .topbar #sidebarToggleTop:active {
@@ -557,7 +552,7 @@ a:focus {
 
 .topbar .dropdown-list .dropdown-item:active {
     background-color: #eaecf4;
-    color: #3a3b45
+    color: #fff
 }
 
 @media (min-width:576px) {
@@ -592,17 +587,17 @@ a:focus {
 }
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link:active {
-    color: #858796
+    color: #fff
 }
 
 .bg-navbar {
-    background-color: #6777ef
+    background-color: #0F2C67
 }
 
 .sidebar {
     min-height: 100vh;
     width: 14rem !important;
-    background-color: #fff !important;
+    background-color: #0F2C67 !important;
     -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
     box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
     z-index: 0
@@ -714,7 +709,7 @@ a:focus {
 
 .sidebar .nav-item .collapse .collapse-inner .collapse-item:hover,
 .sidebar .nav-item .collapsing .collapse-inner .collapse-item:hover {
-    background-color: #eaecf4;
+    background-color: #396EB0;
     transition: all .3s ease-in-out;
     -webkit-transition: all .3s ease-in-out
 }
@@ -1003,7 +998,7 @@ a:focus {
 
     .sidebar.toggled .nav-item .collapse .collapse-inner .collapse-item:hover,
     .sidebar.toggled .nav-item .collapsing .collapse-inner .collapse-item:hover {
-        background-color: #eaecf4;
+        background-color: #396EB0;
         transition: all .3s ease-in-out;
         -webkit-transition: all .3s ease-in-out
     }
@@ -1090,37 +1085,37 @@ a:focus {
 }
 
 .sidebar-light .sidebar-brand {
-    color: #fafafa;
-    background-color: #4c60da
+    color: #fff;
+    background-color: #0F2C67
 }
 
 .sidebar-light hr.sidebar-divider {
-    border-top: 1px solid #eaecf4
+    border-top: 1px solid #396EB0
 }
 
 .sidebar-light .sidebar-heading {
-    color: #b7b9cc
+    color: #fff
 }
 
 .sidebar-light .nav-item .nav-link {
-    color: #858796
+    color: #fff
 }
 
 .sidebar-light .nav-item .nav-link i {
-    color: #9e9e9e
+    color: #fff
 }
 
 .sidebar-light .nav-item .nav-link:active,
 .sidebar-light .nav-item .nav-link:focus,
 .sidebar-light .nav-item .nav-link:hover {
-    color: #6e707e;
-    background-color: #eee
+    color: #fff;
+    background-color: #396EB0
 }
 
 .sidebar-light .nav-item .nav-link:active i,
 .sidebar-light .nav-item .nav-link:focus i,
 .sidebar-light .nav-item .nav-link:hover i {
-    color: #6e707e
+    color: #fff
 }
 
 .sidebar-light .nav-item .nav-link[data-toggle=collapse]::after {
@@ -1128,11 +1123,11 @@ a:focus {
 }
 
 .sidebar-light .nav-item.active .nav-link {
-    color: #6e707e
+    color: #fff
 }
 
 .sidebar-light .nav-item.active .nav-link i {
-    color: #6e707e
+    color: #fff
 }
 
 .sidebar-light #sidebarToggle {
@@ -1805,7 +1800,7 @@ footer.sticky-footer {
     -ms-flex-negative: 0;
     flex-shrink: 0;
     -webkit-box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15);
-    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15)
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15);
 }
 
 footer.sticky-footer .copyright {
@@ -1899,7 +1894,7 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 .form-control:focus {
-    border: 1px solid #6777ef
+    border: 1px solid #0F2C67
 }
 
 .input-group-append span {

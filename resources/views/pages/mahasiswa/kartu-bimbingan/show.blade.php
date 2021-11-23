@@ -4,8 +4,8 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Kartu Bimbingan Dosen {{ $dosen }}</h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('bimbingan.kartu_bimbingan') }}">Kartu Bimbingan</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('bimbingan.kartu-bimbingan') }}">Kartu Bimbingan</a></li>
         <li class="breadcrumb-item active" aria-current="page">Dosen {{ $dosen }}</li>
     </ol>
 </div>
@@ -58,7 +58,7 @@
             </table>
         </div>
         <div class="text-center mt-3">
-            <a href="{{ route('bimbingan.cetak-kartu_bimbingan', $dosen) }}" class="btn btn-primary px-5" target="_blank">Cetak</a>
+            <a href="{{ route('bimbingan.cetak-kartu-bimbingan', $dosen) }}" class="btn btn-primary px-5" target="_blank">Cetak</a>
         </div>
     </div>
 </div>

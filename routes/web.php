@@ -19,51 +19,68 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'home'])->name('home');
+Route::get('/', function(){
+    return redirect()->route('login');
+})->name('home');
 
-Route::get('/dashboard', [DashboardController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth'])
+    ->group(function() {
+        Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/profile', [ProfileController::class, 'edit'])->middleware(['auth'])->name('profile.edit');
-Route::put('/profile/update', [ProfileController::class, 'update'])->middleware(['auth'])->name('profile.update');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
-Route::resource('data-mahasiswa', MahasiswaController::class);
-Route::resource('data-dosen', DosenController::class);
-Route::resource('data-admin', AdminController::class);
+        Route::put('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    });
 
-Route::post('/set-bimbingan', [BimbinganController::class, 'set_pembimbing'])->name('bimbingan.set-pembimbing');
+Route::middleware(['auth','admin'])
+    ->group(function() {
+        Route::resource('data-mahasiswa', MahasiswaController::class);
 
-Route::get('/show-konfirmasi-bimbingan', [BimbinganController::class, 'show_konfirmasi_persetujuan'])->name('bimbingan.show_konfirmasi_persetujuan');
+        Route::resource('data-dosen', DosenController::class);
 
-Route::put('/konfirmasi-bimbingan/{id}/{tipe}', [BimbinganController::class, 'konfirmasi_persetujuan'])->name('bimbingan.konfirmasi_persetujuan');
+        Route::resource('data-admin', AdminController::class);
 
-Route::get('/pembimbing-utama/show', [BimbinganController::class, 'show_pembimbing_1'])->name('bimbingan.show_pembimbing_utama');
+        Route::get('/monitoring-bimbingan', [BimbinganController::class, 'monitoring_bimbingan'])->name('bimbingan.monitoring-bimbingan');
 
-Route::get('/pembimbing-pendamping/show', [BimbinganController::class, 'show_pembimbing_2'])->name('bimbingan.show_pembimbing_pendamping');
+        Route::get('/monitoring-bimbingan/detail/{id}', [BimbinganController::class, 'show_monitoring_bimbingan'])->name('bimbingan.show-monitoring-bimbingan');
 
-Route::post('/pembimbing-utama/store', [BimbinganController::class, 'store_pembimbing_1'])->name('bimbingan.store_pembimbing_utama');
+        Route::get('/monitoring-bimbingan/detail/{id}/show', [BimbinganController::class, 'detail_monitoring_bimbingan'])->name('bimbingan.detail-monitoring-bimbingan');
+    });
 
-Route::post('/pembimbing-pendamping/store', [BimbinganController::class, 'store_pembimbing_2'])->name('bimbingan.store_pembimbing_pendamping');
+Route::middleware(['auth','dosen'])
+    ->group(function() {
+        Route::get('/show-konfirmasi-bimbingan', [BimbinganController::class, 'show_konfirmasi_persetujuan'])->name('bimbingan.show_konfirmasi_persetujuan');
 
-Route::get('/bimbingan-mahasiswa', [BimbinganController::class, 'index_bimbingan'])->name('bimbingan.index_bimbingan');
+        Route::put('/konfirmasi-bimbingan/{id}/{tipe}', [BimbinganController::class, 'konfirmasi_persetujuan'])->name('bimbingan.konfirmasi_persetujuan');
 
-Route::get('/bimbingan-mahasiswa/detail/{id}', [BimbinganController::class, 'detail_bimbingan'])->name('bimbingan.detail_bimbingan');
+        Route::get('/bimbingan-mahasiswa', [BimbinganController::class, 'index_bimbingan'])->name('bimbingan.index_bimbingan');
 
-Route::put('/bimbingan-mahasiswa/detail/{id}/update-bimbingan', [BimbinganController::class, 'update_bimbingan'])->name('bimbingan.update_bimbingan');
+        Route::get('/bimbingan-mahasiswa/detail/{id}', [BimbinganController::class, 'detail_bimbingan'])->name('bimbingan.detail_bimbingan');
 
-Route::get('/riwayat-bimbingan/mahasiswa', [BimbinganController::class, 'riwayat_bimbingan'])->name('bimbingan.riwayat-bimbingan');
+        Route::put('/bimbingan-mahasiswa/detail/{id}/update-bimbingan', [BimbinganController::class, 'update_bimbingan'])->name('bimbingan.update_bimbingan');
 
-Route::get('/riwayat-bimbingan/dosen', [BimbinganController::class, 'riwayat_bimbingan_dosen'])->name('bimbingan.riwayat-bimbingan-dosen');
+        Route::get('/riwayat-bimbingan/dosen', [BimbinganController::class, 'riwayat_bimbingan_dosen'])->name('bimbingan.riwayat-bimbingan-dosen');
+    });
 
-Route::get('/monitoring-bimbingan', [BimbinganController::class, 'monitoring_bimbingan'])->name('bimbingan.monitoring-bimbingan');
+Route::middleware(['auth','mahasiswa'])
+    ->group(function() {
+        Route::post('/set-bimbingan', [BimbinganController::class, 'set_pembimbing'])->name('bimbingan.set-pembimbing');
 
-Route::get('/monitoring-bimbingan/detail/{id}', [BimbinganController::class, 'show_monitoring_bimbingan'])->name('bimbingan.show-monitoring-bimbingan');
+        Route::get('/pembimbing-utama/show', [BimbinganController::class, 'show_pembimbing_1'])->name('bimbingan.show_pembimbing_utama');
 
-Route::get('/monitoring-bimbingan/detail/{id}/show', [BimbinganController::class, 'detail_monitoring_bimbingan'])->name('bimbingan.detail-monitoring-bimbingan');
+        Route::get('/pembimbing-pendamping/show', [BimbinganController::class, 'show_pembimbing_2'])->name('bimbingan.show_pembimbing_pendamping');
 
-Route::get('/kartu-bimbingan', [BimbinganController::class, 'kartu_bimbingan'])->name('bimbingan.kartu_bimbingan');
+        Route::post('/pembimbing-utama/store', [BimbinganController::class, 'store_pembimbing_1'])->name('bimbingan.store_pembimbing_utama');
 
-Route::get('/kartu-bimbingan/show/{dosen}', [BimbinganController::class, 'show_kartu_bimbingan'])->name('bimbingan.show-kartu_bimbingan');
+        Route::post('/pembimbing-pendamping/store', [BimbinganController::class, 'store_pembimbing_2'])->name('bimbingan.store_pembimbing_pendamping');
 
-Route::get('/cetak-bimbingan/{dosen}', [BimbinganController::class, 'cetak_kartu'])->name('bimbingan.cetak-kartu_bimbingan');
+        Route::get('/riwayat-bimbingan/mahasiswa', [BimbinganController::class, 'riwayat_bimbingan'])->name('bimbingan.riwayat-bimbingan');
+
+        Route::get('/kartu-bimbingan', [BimbinganController::class, 'kartu_bimbingan'])->name('bimbingan.kartu-bimbingan');
+
+        Route::get('/kartu-bimbingan/show/{dosen}', [BimbinganController::class, 'show_kartu_bimbingan'])->name('bimbingan.show-kartu-bimbingan');
+
+        Route::get('/cetak-bimbingan/{dosen}', [BimbinganController::class, 'cetak_kartu'])->name('bimbingan.cetak-kartu-bimbingan');
+    });
 
 require __DIR__.'/auth.php';

@@ -4,7 +4,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Monitoring Mahasiswa</h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item active" aria-current="page">Monitoring Mahasiswa</li>
     </ol>
 </div>
@@ -12,7 +12,7 @@
 <div class="card">
     <div class="card-body">
         <div class="table table-responsive">
-            <table class="table table-bordered text-nowrap">
+            <table class="table table-bordered text-nowrap" id="table">
                 <thead>
                     <tr class="text-center">
                         <th>No</th>
@@ -48,3 +48,13 @@
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        $(document).ready( function () {
+            $('#table').DataTable({
+                ordering: false
+            });
+        });
+    </script>
+@endpush

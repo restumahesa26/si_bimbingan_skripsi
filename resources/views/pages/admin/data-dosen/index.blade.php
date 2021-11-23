@@ -4,7 +4,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Data Dosen</h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('data-dosen.index') }}">Kelola Data</a></li>
         <li class="breadcrumb-item active" aria-current="page">Data Dosen</li>
     </ol>
@@ -14,7 +14,7 @@
     <div class="card-body">
         <a href="{{ route('data-dosen.create') }}" class="btn btn-info mb-3">Tambah Data Dosen</a>
         <div class="table table-responsive">
-            <table class="table table-bordered text-nowrap">
+            <table class="table table-bordered text-nowrap" id="table">
                 <thead>
                     <tr class="text-center">
                         <th>No</th>
@@ -51,3 +51,13 @@
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script>
+        $(document).ready( function () {
+            $('#table').DataTable({
+                ordering: false
+            });
+        });
+    </script>
+@endpush
