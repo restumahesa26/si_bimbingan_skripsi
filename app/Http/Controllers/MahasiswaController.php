@@ -54,6 +54,7 @@ class MahasiswaController extends Controller
             'username' => $request->username,
             'nama' => $request->nama,
             'email' => $request->email,
+            'role' => 'MAHASISWA',
             'password' => Hash::make($request->password),
         ]);
 

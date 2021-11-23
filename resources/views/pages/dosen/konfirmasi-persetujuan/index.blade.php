@@ -4,12 +4,12 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Konfirmasi Persetujuan</h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="./">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
         <li class="breadcrumb-item active" aria-current="page">Konfirmasi Persetujuan</li>
     </ol>
 </div>
 
-@if ($items && $items2)
+@if ($items == NULL && $items2 == NULL)
     <div class="card">
         <div class="card-body">
             <h5>Tidak ada yang perlu dikonfirmasi</h5>
@@ -81,14 +81,14 @@
             </div>
             <div class="modal-body">
                 <p>Dimohon Kepada saudara/i untuk kesediannya sebagai Pembimbing Pendamping dari mahasiswa atas</p>
-                <p>Nama : {{ $ite->mahasiswa->nama }}</p>
-                <p>NPM : {{ $ite->mahasiswa->mahasiswa->npm }}</p>
-                <p>Judul Skripsi : {{ $ite->mahasiswa->mahasiswa->judul_skripsi }}</p>
+                <p>Nama : {{ $ite2->mahasiswa->nama }}</p>
+                <p>NPM : {{ $ite2->mahasiswa->mahasiswa->npm }}</p>
+                <p>Judul Skripsi : {{ $ite2->mahasiswa->mahasiswa->judul_skripsi }}</p>
                 <br>
                 <p>Atas perhatiannya kami ucapkan terima kasih.</p>
             </div>
             <div class="modal-footer">
-                <form action="{{ route('bimbingan.konfirmasi_persetujuan', ['id' => $ite->id, 'tipe' => 'Pembimbing-Pendamping']) }}" method="POST">
+                <form action="{{ route('bimbingan.konfirmasi_persetujuan', ['id' => $ite2->id, 'tipe' => 'Pembimbing-Pendamping']) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <button type="submit" class="btn btn-primary">Konfirmasi</button>

@@ -33,10 +33,27 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password')
         ]);
 
+
+        $dosen2 = User::create([
+            'nama' => 'Andrei Jonior Gustari',
+            'username' => 'andreijonior',
+            'email' => 'andrei@gmail.com',
+            'role' => 'DOSEN',
+            'password' => Hash::make('password')
+        ]);
+
         $mahasiswa = User::create([
             'nama' => 'Diyah Ishita',
             'username' => 'diyahishita',
             'email' => 'diyahishita@gmail.com',
+            'role' => 'MAHASISWA',
+            'password' => Hash::make('password')
+        ]);
+
+        $mahasiswa2 = User::create([
+            'nama' => 'Dewi Silvia',
+            'username' => 'dewisilvia',
+            'email' => 'dewisilvia@gmail.com',
             'role' => 'MAHASISWA',
             'password' => Hash::make('password')
         ]);
@@ -50,9 +67,23 @@ class UserSeeder extends Seeder
             'status' => '1',
         ]);
 
+        Dosen::create([
+            'user_id' => $dosen2->id,
+            'nip' => '12345678910111213',
+            'jabatan' => 'Dosen',
+            'prodi' => 'Informatika',
+            'fakultas' => 'Teknik',
+            'status' => '1',
+        ]);
+
         Mahasiswa::create([
             'user_id' => $mahasiswa->id,
             'npm' => 'G1A019038'
+        ]);
+
+        Mahasiswa::create([
+            'user_id' => $mahasiswa2->id,
+            'npm' => 'G1A019022'
         ]);
     }
 }

@@ -80,6 +80,20 @@
 <!--Row-->
 @endif
 
+@if (Auth::user()->role === 'MAHASISWA')
+    <div class="card">
+        <div class="card-body">
+            <h3>Selamat Datang, Mahasiswa {{ Auth::user()->nama }}</h3>
+        </div>
+    </div>
+@elseif (Auth::user()->role === 'DOSEN')
+<div class="card">
+    <div class="card-body">
+        <h3>Selamat Datang, Dosen {{ Auth::user()->nama }}</h3>
+    </div>
+</div>
+@endif
+
 @if (Auth::user()->role === 'MAHASISWA' && Auth::user()->dosen_utama == NULL && Auth::user()->dosen_pendamping == NULL)
     <div class="card mb-5">
         <div class="card-body">

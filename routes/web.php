@@ -58,4 +58,12 @@ Route::get('/monitoring-bimbingan', [BimbinganController::class, 'monitoring_bim
 
 Route::get('/monitoring-bimbingan/detail/{id}', [BimbinganController::class, 'show_monitoring_bimbingan'])->name('bimbingan.show-monitoring-bimbingan');
 
+Route::get('/monitoring-bimbingan/detail/{id}/show', [BimbinganController::class, 'detail_monitoring_bimbingan'])->name('bimbingan.detail-monitoring-bimbingan');
+
+Route::get('/kartu-bimbingan', [BimbinganController::class, 'kartu_bimbingan'])->name('bimbingan.kartu_bimbingan');
+
+Route::get('/kartu-bimbingan/show/{dosen}', [BimbinganController::class, 'show_kartu_bimbingan'])->name('bimbingan.show-kartu_bimbingan');
+
+Route::get('/cetak-bimbingan/{dosen}', [BimbinganController::class, 'cetak_kartu'])->name('bimbingan.cetak-kartu_bimbingan');
+
 require __DIR__.'/auth.php';

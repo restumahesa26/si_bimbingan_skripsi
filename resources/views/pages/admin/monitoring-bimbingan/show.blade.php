@@ -2,63 +2,47 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Bimbingan Mahasiswa</h1>
+    <h1 class="h3 mb-0 text-gray-800">Monitoring Mahasiswa</h1>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('bimbingan.monitoring-bimbingan') }}">Bimbingan Mahasiswa</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Detail</li>
+        <li class="breadcrumb-item active" aria-current="page">Monitoring Mahasiswa</li>
     </ol>
 </div>
 
 <div class="card">
     <div class="card-body">
-        <div class="form-group row">
-            <div class="col-2">
-                <label for="">Nama Mahasiswa</label>
-            </div>
-            <div class="col-8">
-                <label for="">{{ $item->mahasiswa->nama }}</label>
-            </div>
+        <div class="table table-responsive">
+            <table class="table table-bordered text-nowrap">
+                <thead>
+                    <tr class="text-center">
+                        <th>No</th>
+                        <th>NPM</th>
+                        <th>Nama</th>
+                        <th>Dosen</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($items as $item)
+                    <tr class="text-center">
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->mahasiswa->mahasiswa->npm }}</td>
+                        <td>{{ $item->mahasiswa->nama }}</td>
+                        <td>{{ $item->dosen->nama }}</td>
+                        <td>{{ $item->status }}</td>
+                        <td>
+                            <a href="{{ route('bimbingan.detail-monitoring-bimbingan', $item->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                        </td>
+                    </tr>
+                    @empty
+                    <tr class="text-center">
+                        <td colspan="7">-- Data Masih Kosong --</td>
+                    </tr>
+                    @endforelse
+                </tbody>
+            </table>
         </div>
-        <div class="form-group row">
-            <div class="col-2">
-                <label for="">Tanggal Bimbingan</label>
-            </div>
-            <div class="col-8">
-                <label for="">{{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}</label>
-            </div>
-        </div>
-        <div class="form-group">
-            <p>Uraian Konsultasi</p>
-            <b>{!! $item->uraian_konsultasi !!}</b>
-        </div>
-        <a href="{{ asset('storage/assets/file-mahasiswa/' . $item->file_mahasiswa) }}" class="btn btn-info" target="_blank">Lihat File Yang Dikirim Mahasiswa</a>
     </div>
 </div>
-
-@if ($item->status == 'Revisi' || $item->status == 'ACC')
-    <div class="card mt-3 mb-5">
-        <div class="card-body">
-            <div class="form-group row">
-                <div class="col-2">
-                    <label for="">Komentar Dosen</label>
-                </div>
-                <div class="col-8">
-                    <label for="">{!! $item->komentar_dosen !!}</label>
-                </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-2">
-                    <label for="">Status</label>
-                </div>
-                <div class="col-8">
-                    <label for="" class="text-danger" style="font-weight: 800">{{ $item->status }}</label>
-                </div>
-            </div>
-            <a href="{{ asset('storage/assets/file-dosen/' . $item->file_dosen) }}" class="btn btn-info" target="_blank">Lihat File Yang Dikirim Dosen</a>
-
-        </div>
-    </div>
-@endif
-
 @endsection

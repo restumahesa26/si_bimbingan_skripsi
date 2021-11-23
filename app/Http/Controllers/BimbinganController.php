@@ -75,7 +75,7 @@ class BimbinganController extends Controller
     {
         $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->where('status_persetujuan', '1')->first();
 
-        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Dibaca')->orWhere('status', 'Terkirim')->first();
+        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Terkirim')->orWhere('status', 'Dibaca')->first();
 
         if ($check) {
             return view('pages.mahasiswa.pembimbing-1.index', [
@@ -119,7 +119,7 @@ class BimbinganController extends Controller
     {
         $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->where('status_persetujuan', '1')->first();
 
-        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Dibaca')->orWhere('status', 'Terkirim')->first();
+        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Terkirim')->orWhere('status', 'Dibaca')->first();
 
         if ($check) {
             return view('pages.mahasiswa.pembimbing-2.index', [
@@ -227,7 +227,7 @@ class BimbinganController extends Controller
 
     public function monitoring_bimbingan()
     {
-        $items = Bimbingan::orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->get();
+        $items = Bimbingan::orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->get()->groupBy('mahasiswa_id');
 
         return view('pages.admin.monitoring-bimbingan.index', [
             'items' => $items
@@ -236,10 +236,52 @@ class BimbinganController extends Controller
 
     public function show_monitoring_bimbingan($id)
     {
-        $item =  Bimbingan::findOrFail($id);
+        $items =  Bimbingan::where('mahasiswa_id', $id)->get();
 
         return view('pages.admin.monitoring-bimbingan.show', [
+            'items' => $items
+        ]);
+    }
+
+    public function detail_monitoring_bimbingan($id)
+    {
+        $item =  Bimbingan::findOrFail($id);
+
+        return view('pages.admin.monitoring-bimbingan.detail', [
             'item' => $item
+        ]);
+    }
+
+    public function kartu_bimbingan()
+    {
+        return view('pages.mahasiswa.kartu-bimbingan.index');
+    }
+
+    public function show_kartu_bimbingan($dosen)
+    {
+        if ($dosen == 'Utama') {
+            $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->first();
+        }elseif ($dosen == 'Pendamping') {
+            $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
+        }
+        $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
+
+        return view('pages.mahasiswa.kartu-bimbingan.show', [
+            'items' => $items, 'dosen' => $dosen
+        ]);
+    }
+
+    public function cetak_kartu($dosen)
+    {
+        if ($dosen == 'Utama') {
+            $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->first();
+        }elseif ($dosen == 'Pendamping') {
+            $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
+        }
+        $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
+
+        return view('pages.mahasiswa.kartu-bimbingan.kartu', [
+            'items' => $items, 'dosen' => $dosen
         ]);
     }
 }

@@ -28,17 +28,19 @@
                     @forelse ($items as $item)
                     <tr class="text-center">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->mahasiswa->mahasiswa->npm }}</td>
-                        <td>{{ $item->mahasiswa->nama }}</td>
-                        <td>{{ $item->pembimbing_utama->dosen->nama }}</td>
-                        <td>{{ $item->pembimbing_pendamping->dosen->nama }}</td>
-                        <td>{{ $item->status }}</td>
+                        <td>{{ $item[0]->mahasiswa->mahasiswa->npm }}</td>
+                        <td>{{ $item[0]->mahasiswa->nama }}</td>
+                        <td>{{ $item[0]->pembimbing_utama->dosen->nama }}</td>
+                        <td>{{ $item[0]->pembimbing_pendamping->dosen->nama }}</td>
+                        <td>{{ $item[0]->mahasiswa->mahasiswa->status_bimbingan }}</td>
                         <td>
-                            <a href="{{ route('bimbingan.show-monitoring-bimbingan', $item->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                            <a href="{{ route('bimbingan.show-monitoring-bimbingan', $item[0]->mahasiswa->id) }}" class="btn btn-sm btn-primary">Detail</a>
                         </td>
                     </tr>
                     @empty
-
+                    <tr class="text-center">
+                        <td colspan="7">-- Data Masih Kosong --</td>
+                    </tr>
                     @endforelse
                 </tbody>
             </table>

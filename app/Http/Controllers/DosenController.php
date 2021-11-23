@@ -57,6 +57,7 @@ class DosenController extends Controller
             'username' => $request->username,
             'nama' => $request->nama,
             'email' => $request->email,
+            'role' => 'DOSEN',
             'password' => Hash::make($request->password),
         ]);
 

@@ -25,11 +25,11 @@ class Bimbingan extends Model
 
     public function pembimbing_utama()
     {
-        return $this->hasOne(PembimbingUtama::class, 'dosen_id', 'dosen_id');
+        return $this->hasOne(PembimbingUtama::class, 'mahasiswa_id', 'mahasiswa_id');
     }
 
     public function pembimbing_pendamping()
     {
-        return $this->hasOne(PembimbingPendamping::class, 'dosen_id', 'dosen_id');
+        return $this->hasOne(PembimbingPendamping::class, 'mahasiswa_id', 'mahasiswa_id');
     }
 }

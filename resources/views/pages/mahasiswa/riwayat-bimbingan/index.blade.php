@@ -4,8 +4,8 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Riwayat Bimbingan</h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="./">Home</a></li>
-        <li class="breadcrumb-item"><a href="./">Bimbingan Skripsi</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('bimbingan.riwayat-bimbingan') }}">Bimbingan Skripsi</a></li>
         <li class="breadcrumb-item active" aria-current="page">Riwayat Bimbingan</li>
     </ol>
 </div>
@@ -20,7 +20,11 @@
     </div>
 </div>
 @empty
-
+<div class="card">
+    <div class="card-body">
+        <h3>Belum melakukan bimbingan</h3>
+    </div>
+</div>
 @endforelse
 @endsection
 

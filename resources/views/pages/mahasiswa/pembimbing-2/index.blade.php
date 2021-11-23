@@ -4,8 +4,8 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Pembimbing Pendamping</h1>
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="./">Home</a></li>
-        <li class="breadcrumb-item"><a href="./">Bimbingan Skripsi</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('bimbingan.show_pembimbing_pendamping') }}">Bimbingan Skripsi</a></li>
         <li class="breadcrumb-item active" aria-current="page">Pembimbing Pendamping</li>
     </ol>
 </div>
@@ -15,7 +15,7 @@
         @if ($check)
         <h3>Bimbingan Sebelumnya Belum Diverifikasi</h3>
         @else
-        <form action="{{ route('bimbingan.store_pembimbing_utama') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('bimbingan.store_pembimbing_pendamping') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="form-group">
                 <label for="judul_skripsi">Judul Skripsi</label>
