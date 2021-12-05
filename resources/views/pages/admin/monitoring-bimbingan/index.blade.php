@@ -35,6 +35,9 @@
                         <td>{{ $item[0]->mahasiswa->mahasiswa->status_bimbingan }}</td>
                         <td>
                             <a href="{{ route('bimbingan.show-monitoring-bimbingan', $item[0]->mahasiswa->id) }}" class="btn btn-sm btn-primary">Detail</a>
+                            @if ($item[0]->mahasiswa->mahasiswa->status_bimbingan == 'Masih Bimbingan')
+                            <a href="{{ route('bimbingan.selesaikan-bimbingan', $item[0]->mahasiswa->id) }}" class="btn btn-sm btn-warning btn-selesai">Selesai Bimbingan</a>
+                            @endif
                         </td>
                     </tr>
                     @empty
@@ -54,6 +57,31 @@
         $(document).ready( function () {
             $('#table').DataTable({
                 ordering: false
+            });
+        });
+    </script>
+
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    <script>
+        $('.btn-selesai').on('click', function (event) {
+            event.preventDefault(); // prevent form submit
+            var form = $(this).attr('href');
+            Swal.fire({
+                title: 'Yakin Menyelesaikan Bimbingan?',
+                text: "Pastikan Telah Melakukan Bimbingan Sebanyak 10x",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Konfirmasi',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = form;
+                }else {
+                    Swal.fire('Data Batal Disimpan');
+                }
             });
         });
     </script>

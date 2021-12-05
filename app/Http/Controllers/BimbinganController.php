@@ -9,6 +9,7 @@ use App\Models\PembimbingUtama;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class BimbinganController extends Controller
 {
@@ -100,14 +101,16 @@ class BimbinganController extends Controller
             'file_mahasiswa' => ['required', 'mimes:pdf', 'max:1048']
         ]);
 
+        $item = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->first();
+
+        $random = Str::random(6);
+
         if ($request->file('file_mahasiswa')) {
             $value = $request->file('file_mahasiswa');
             $extension = $value->extension();
-            $fileNames = uniqid('pdf_', microtime()) . '.' . $extension;
+            $fileNames = Auth::user()->nama . '-' . $item->dosen_id . '-' . $request->bab_pembahasan . $random . '.' . $extension;
             Storage::putFileAs('public/assets/file-mahasiswa', $value, $fileNames);
         }
-
-        $item = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->first();
 
         Bimbingan::create([
             'dosen_id' => $item->dosen_id,
@@ -118,7 +121,7 @@ class BimbinganController extends Controller
             'status' => 'Terkirim'
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('bimbingan.riwayat-bimbingan')->with(['success-bimbingan' => 'Berhasil Mengirim Data Bimbingan Untuk Dosen Pembimbing Utama']);
     }
 
     public function show_pembimbing_2()
@@ -144,14 +147,16 @@ class BimbinganController extends Controller
             'file_mahasiswa' => ['required', 'mimes:pdf', 'max:1048']
         ]);
 
+        $item = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
+
+        $random = Str::random(6);
+
         if ($request->file('file_mahasiswa')) {
             $value = $request->file('file_mahasiswa');
             $extension = $value->extension();
-            $fileNames = uniqid('pdf_', microtime()) . '.' . $extension;
+            $fileNames = Auth::user()->nama . '-' . $item->dosen_id . '-' . $request->bab_pembahasan . $random . '.' . $extension;
             Storage::putFileAs('public/assets/file-mahasiswa', $value, $fileNames);
         }
-
-        $item = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
 
         Bimbingan::create([
             'dosen_id' => $item->dosen_id,
@@ -162,7 +167,7 @@ class BimbinganController extends Controller
             'status' => 'Terkirim'
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('bimbingan.riwayat-bimbingan')->with(['success-bimbingan' => 'Berhasil Mengirim Data Bimbingan Untuk Dosen Pembimbing Pendamping']);
     }
 
     public function index_bimbingan()
@@ -242,7 +247,7 @@ class BimbinganController extends Controller
 
     public function show_monitoring_bimbingan($id)
     {
-        $items =  Bimbingan::where('mahasiswa_id', $id)->get();
+        $items =  Bimbingan::where('mahasiswa_id', $id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->get();
 
         return view('pages.admin.monitoring-bimbingan.show', [
             'items' => $items
@@ -267,14 +272,20 @@ class BimbinganController extends Controller
     {
         if ($dosen == 'Utama') {
             $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->first();
+            $nama = 'Pembimbing Utama';
         }elseif ($dosen == 'Pendamping') {
             $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
+            $nama = 'Pembimbing Pendamping';
         }
         $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
 
-        return view('pages.mahasiswa.kartu-bimbingan.show', [
-            'items' => $items, 'dosen' => $dosen
-        ]);
+        if (Auth::user()->mahasiswa->status_bimbingan === 'Selesai') {
+            return view('pages.mahasiswa.kartu-bimbingan.show', [
+                'items' => $items, 'dosen' => $dosen
+            ]);
+        } else {
+            return redirect()->back()->with(['error-kartu' => 'Anda Belum Selesai Melakukan Bimbingan Dengan Dosen ' . $nama]);
+        }
     }
 
     public function cetak_kartu($dosen)
@@ -286,8 +297,23 @@ class BimbinganController extends Controller
         }
         $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
 
-        return view('pages.mahasiswa.kartu-bimbingan.kartu', [
-            'items' => $items, 'dosen' => $dosen
+        if (Auth::user()->mahasiswa->status_bimbingan === 'Selesai') {
+            return view('pages.mahasiswa.kartu-bimbingan.kartu', [
+                'items' => $items, 'dosen' => $dosen
+            ]);
+        } else {
+            return redirect()->back();
+        }
+    }
+
+    public function selesaikan_bimbingan($id)
+    {
+        $item = Mahasiswa::where('user_id', $id)->first();
+
+        $item->update([
+            'status_bimbingan' => 'Selesai'
         ]);
+
+        return redirect()->route('bimbingan.monitoring-bimbingan');
     }
 }

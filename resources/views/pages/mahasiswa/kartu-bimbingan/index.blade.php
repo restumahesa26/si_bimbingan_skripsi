@@ -18,3 +18,17 @@
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    @if ($message = Session::get('error-kartu'))
+        <script>
+            Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: '{{ $message }}'
+        })
+        </script>
+    @endif
+@endpush

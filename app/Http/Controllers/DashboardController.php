@@ -13,9 +13,11 @@ class DashboardController extends Controller
         $mahasiswa = Mahasiswa::count();
         $dosen = Dosen::count();
         $dosens = Dosen::where('status', '1')->get();
+        $mhsMsBimbingan = Mahasiswa::where('status_bimbingan', 'Masih Bimbingan')->count();
+        $mhsSlBimbingan = Mahasiswa::where('status_bimbingan', 'Selesai')->count();
 
         return view('pages.dashboard', [
-            'mahasiswa' => $mahasiswa, 'dosen' => $dosen, 'dosens' => $dosens
+            'mahasiswa' => $mahasiswa, 'dosen' => $dosen, 'dosens' => $dosens, 'mhs1' => $mhsMsBimbingan, 'mhs2' => $mhsSlBimbingan
         ]);
     }
 

@@ -38,7 +38,7 @@
                             <form action="{{ route('data-dosen.destroy', $item->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-sm btn-danger btn-hapus">Hapus</button>
                             </form>
                         </td>
                     </tr>
@@ -60,4 +60,40 @@
             });
         });
     </script>
+
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    <script>
+        $('.btn-hapus').on('click', function (e) {
+            e.preventDefault(); // prevent form submit
+            var form = event.target.form;
+            Swal.fire({
+            title: 'Yakin Menghapus Data?',
+            text: "Data Akan Terhapus Permanen",
+            icon: 'warning',
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Hapus',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }else {
+                    Swal.fire('Data Batal Dihapus');
+                }
+            });
+        });
+    </script>
+
+    @if ($message = Session::get('success'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '{{ $message }}'
+        })
+    </script>
+    @endif
 @endpush

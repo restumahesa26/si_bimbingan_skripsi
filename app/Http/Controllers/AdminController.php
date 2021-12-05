@@ -56,7 +56,7 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('data-admin.index');
+        return redirect()->route('data-admin.index')->with(['success' => 'Berhasil Menambah Data Admin']);
     }
 
     /**
@@ -121,7 +121,7 @@ class AdminController extends Controller
         }
         $item->save();
 
-        return redirect()->route('data-admin.index');
+        return redirect()->route('data-admin.index')->with(['success' => 'Berhasil Mengubah Data Admin']);
     }
 
     /**
@@ -136,6 +136,6 @@ class AdminController extends Controller
 
         $item->delete();
 
-        return redirect()->route('data-admin.index');
+        return redirect()->route('data-admin.index')->with(['success' => 'Berhasil Menghapus Data Admin']);
     }
 }

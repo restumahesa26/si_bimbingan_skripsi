@@ -26,21 +26,9 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="npm" :value="__('NPM / NIP')" />
+                <x-label for="npm" :value="__('NPM')" />
 
                 <x-input id="npm" class="block mt-1 w-full" type="text" name="npm" :value="old('npm')" required autofocus />
-            </div>
-
-            <div class="mt-4">
-                <x-label for="roles" :value="__('Role')" />
-                <div class="inline-flex">
-                    <x-input id="mahasiswa" class="block mt-1" type="radio" name="role" value="MAHASISWA" required autofocus />
-                    <x-label for="mahasiswa" :value="__('Mahasiswa')" class="ml-2 mt-1" />
-                </div>
-                <div class="inline-flex ml-3">
-                    <x-input id="dosen" class="block mt-1" type="radio" name="role" value="DOSEN" required autofocus />
-                    <x-label for="dosen" :value="__('Dosen')" class="ml-2 mt-1" />
-                </div>
             </div>
 
             <!-- Email Address -->

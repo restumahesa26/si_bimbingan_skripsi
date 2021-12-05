@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Data Dosen</h1>
+    <div class="d-flex justify-content-start">
+        <a href="{{ route('data-dosen.index') }}" class="btn btn-sm btn-primary mr-2">Kembali</a>
+        <h1 class="h3 mb-0 text-gray-800">Data Dosen</h1>
+    </div>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('data-dosen.index') }}">Kelola Data</a></li>

@@ -39,7 +39,6 @@ class RegisteredUserController extends Controller
             'nama' => ['required', 'string', 'max:255'],
             'npm' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255'],
-            'role' => ['required', 'in:DOSEN,MAHASISWA'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -47,22 +46,15 @@ class RegisteredUserController extends Controller
         $user = User::create([
             'nama' => $request->nama,
             'username' => $request->username,
-            'role' => $request->role,
+            'role' => 'MAHASISWA',
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        if ($request->role === 'DOSEN') {
-            Dosen::create([
-                'user_id' => $user->id,
-                'nip' => $request->npm
-            ]);
-        }elseif ($request->role === 'MAHASISWA') {
-            Mahasiswa::create([
-                'user_id' => $user->id,
-                'npm' => $request->npm
-            ]);
-        }
+        Mahasiswa::create([
+            'user_id' => $user->id,
+            'npm' => $request->npm
+        ]);
 
         event(new Registered($user));
 

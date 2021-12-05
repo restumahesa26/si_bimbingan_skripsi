@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Data Dosen</h1>
+    <div class="d-flex justify-content-start">
+        <a href="{{ route('data-dosen.index') }}" class="btn btn-sm btn-primary mr-2">Kembali</a>
+        <h1 class="h3 mb-0 text-gray-800">Data Dosen</h1>
+    </div>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('data-dosen.index') }}">Kelola Data</a></li>
@@ -60,8 +63,36 @@
                     <option value="0" @if ($item->status == 0) selected @endif>Tidak Aktif</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
+            <button type="submit" class="btn btn-primary btn-block btn-edit">Simpan Perubahan</button>
         </form>
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    <script>
+        $('.btn-edit').on('click', function (e) {
+        e.preventDefault(); // prevent form submit
+        var form = event.target.form;
+        Swal.fire({
+        title: 'Yakin Menyimpan Perubahan?',
+        text: "Data Akan Tersimpan",
+        icon: 'warning',
+        allowOutsideClick: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Simpan',
+        cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }else {
+                Swal.fire('Data Batal Disimpan');
+            }
+        });
+    });
+    </script>
+@endpush

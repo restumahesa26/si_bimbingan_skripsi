@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Bimbingan Mahasiswa</h1>
+    <div class="d-flex justify-content-start">
+        <a href="{{ route('bimbingan.index_bimbingan') }}" class="btn btn-sm btn-primary mr-2">Kembali</a>
+        <h1 class="h3 mb-0 text-gray-800">Bimbingan Mahasiswa</h1>
+    </div>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('bimbingan.index_bimbingan') }}">Bimbingan Mahasiswa</a></li>
@@ -22,6 +25,14 @@
         </div>
         <div class="form-group row">
             <div class="col-2">
+                <label for="">Bab Pembahasan</label>
+            </div>
+            <div class="col-8">
+                <label for="">{{ $item->bab_pembahasan }}</label>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-2">
                 <label for="">Tanggal Bimbingan</label>
             </div>
             <div class="col-8">
@@ -32,7 +43,7 @@
             <p>Uraian Konsultasi</p>
             <p>{!! $item->uraian_konsultasi !!}</p>
         </div>
-        <a href="{{ asset('storage/assets/file-mahasiswa/' . $item->file_mahasiswa) }}" class="btn btn-info" target="_blank">Lihat File Yang Dikirim Mahasiswa</a>
+        <a href="{{ asset('storage/assets/file-mahasiswa/' . $item->file_mahasiswa) }}" class="btn btn-info btn-sm" target="_blank">Download File Yang Dikirim Mahasiswa</a>
     </div>
 </div>
 @if ($item->status === 'Dibaca')
@@ -60,7 +71,7 @@
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Simpan</button>
+            <button type="submit" class="btn btn-primary btn-simpan">Simpan</button>
         </form>
     </div>
 </div>
@@ -94,8 +105,45 @@
 @endsection
 
 @push('addon-script')
-<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('komentar_dosen');
-</script>
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
+
+    <script>
+        CKEDITOR.replace('komentar_dosen');
+    </script>
+
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    <script>
+        $('.btn-simpan').on('click', function (e) {
+            e.preventDefault(); // prevent form submit
+            var form = event.target.form;
+            Swal.fire({
+            title: 'Yakin Menyimpan Bimbingan?',
+            text: "Data Akan Tersimpan",
+            icon: 'warning',
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Simpan',
+            cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }else {
+                    Swal.fire('Data Batal Disimpan');
+                }
+            });
+        });
+    </script>
+
+    @if ($errors->any())
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: 'Perhatikan Lagi Field Yang Diisi'
+        })
+    </script>
+    @endif
 @endpush

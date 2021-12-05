@@ -20,7 +20,11 @@
     </div>
 </div>
 @empty
-
+    <div class="card mb-4">
+        <div class="card-body">
+            <h4>Belum ada riwayat bimbingan</h4>
+        </div>
+    </div>
 @endforelse
 @endsection
 

@@ -63,7 +63,7 @@ class MahasiswaController extends Controller
             'npm' => $request->npm
         ]);
 
-        return redirect()->route('data-mahasiswa.index');
+        return redirect()->route('data-mahasiswa.index')->with(['success' => 'Berhasil Menambah Data Mahasiswa']);
     }
 
     /**
@@ -134,7 +134,7 @@ class MahasiswaController extends Controller
         }
         $item2->save();
 
-        return redirect()->route('data-mahasiswa.index');
+        return redirect()->route('data-mahasiswa.index')->with(['success' => 'Berhasil Mengubah Data Mahasiswa']);
     }
 
     /**
@@ -149,6 +149,6 @@ class MahasiswaController extends Controller
 
         $item->delete();
 
-        return redirect()->route('data-mahasiswa.index');
+        return redirect()->route('data-mahasiswa.index')->with(['success' => 'Berhasil Menghapus Data Mahasiswa']);
     }
 }

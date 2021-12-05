@@ -70,7 +70,7 @@ class DosenController extends Controller
             'status' => $request->status,
         ]);
 
-        return redirect()->route('data-dosen.index');
+        return redirect()->route('data-dosen.index')->with(['success' => 'Berhasil Menambah Data Dosen']);
     }
 
     /**
@@ -148,7 +148,7 @@ class DosenController extends Controller
         }
         $item2->save();
 
-        return redirect()->route('data-dosen.index');
+        return redirect()->route('data-dosen.index')->with(['success' => 'Berhasil Mengubah Data Dosen']);
     }
 
     /**
@@ -163,6 +163,6 @@ class DosenController extends Controller
 
         $item->delete();
 
-        return redirect()->route('data-dosen.index');
+        return redirect()->route('data-dosen.index')->with(['success' => 'Berhasil Menghapus Data Dosen']);
     }
 }

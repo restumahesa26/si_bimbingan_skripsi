@@ -1,8 +1,20 @@
-<link rel="stylesheet" href="{{ url('frontend/css/bootstrap.min.css') }}">
-<link rel="stylesheet" href="{{ url('frontend/css/animate.min.css') }}">
-<link rel="stylesheet" href="{{ url('frontend/css/font-awesome.min.css') }}">
-<link rel="stylesheet" href="{{ url('frontend/css/component.css') }}">
+<!--====== Favicon Icon ======-->
+<link rel="shortcut icon" href="{{ url('logo-unib.png') }}" type="image/png">
 
-<link rel="stylesheet" href="{{ url('frontend/css/owl.theme.css') }}">
-<link rel="stylesheet" href="{{ url('frontend/css/owl.carousel.css') }}">
-<link rel="stylesheet" href="{{ url('frontend/css/style.css') }}">
+<!--====== Magnific Popup CSS ======-->
+<link rel="stylesheet" href="{{ url('frontend/assets/css/magnific-popup.css') }}">
+
+<!--====== Slick CSS ======-->
+<link rel="stylesheet" href="{{ url('frontend/assets/css/slick.css') }}">
+
+<!--====== Line Icons CSS ======-->
+<link rel="stylesheet" href="{{ url('frontend/assets/css/LineIcons.css') }}">
+
+<!--====== Bootstrap CSS ======-->
+<link rel="stylesheet" href="{{ url('frontend/assets/css/bootstrap.min.css') }}">
+
+<!--====== Default CSS ======-->
+<link rel="stylesheet" href="{{ url('frontend/assets/css/default.css') }}">
+
+<!--====== Style CSS ======-->
+<link rel="stylesheet" href="{{ url('frontend/assets/css/style.css') }}">

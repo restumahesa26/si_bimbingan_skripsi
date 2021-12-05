@@ -71,8 +71,36 @@
                 <label for="password_confirmation">Konfirmasi Password</label>
                 <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" value="{{ old('password_confirmation') }}" placeholder="Masukkan Konfirmasi Password">
             </div>
-            <button type="submit" class="btn btn-primary btn-block">Simpan Perubahan</button>
+            <button type="submit" class="btn btn-primary btn-block btn-edit">Simpan Perubahan</button>
         </form>
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    <script>
+        $('.btn-edit').on('click', function (e) {
+        e.preventDefault(); // prevent form submit
+        var form = event.target.form;
+        Swal.fire({
+        title: 'Yakin Menyimpan Perubahan?',
+        text: "Data Akan Tersimpan",
+        icon: 'warning',
+        allowOutsideClick: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Simpan',
+        cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }else {
+                Swal.fire('Data Batal Disimpan');
+            }
+        });
+    });
+    </script>
+@endpush

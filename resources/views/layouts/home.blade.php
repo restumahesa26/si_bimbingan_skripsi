@@ -1,41 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="en">
+
 <head>
+    <meta charset="utf-8">
 
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords" content="">
-	<meta name="description" content="">
+    <!--====== Title ======-->
+    <title>SI Bimb. Skripsi</title>
 
-	<title>Snapshot HTML CSS Web Template</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @include('includes.home.style')
 
-	<!-- Google web font  -->
-	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
-
 </head>
-<body id="top" data-spy="scroll" data-offset="50" data-target=".navbar-collapse" >
 
+<body>
+    <!--[if IE]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
 
-<!-- Preloader section -->
+    <!--====== PRELOADER PART START ======-->
 
-<div class="preloader">
-     <div class="sk-spinner sk-spinner-pulse"></div>
-</div>
+    <div class="preloader">
+        <div class="loader">
+            <div class="ytp-spinner">
+                <div class="ytp-spinner-container">
+                    <div class="ytp-spinner-rotator">
+                        <div class="ytp-spinner-left">
+                            <div class="ytp-spinner-circle"></div>
+                        </div>
+                        <div class="ytp-spinner-right">
+                            <div class="ytp-spinner-circle"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!--====== PRELOADER PART ENDS ======-->
 
-<!-- Navigation section  -->
+    <!--====== NAVBAR TWO PART START ======-->
 
-@include('includes.home.navbar')
+    @include('includes.home.navbar')
 
+    <!--====== NAVBAR TWO PART ENDS ======-->
 
-<!-- Home section -->
+    <!--====== SLIDER PART START ======-->
 
-@yield('content')
+    @yield('content')
 
-@include('includes.home.script')
+    @include('includes.home.script')
 
 </body>
+
 </html>

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function(){
-    return redirect()->route('login');
+    return view('pages.home');
 })->name('home');
 
 Route::middleware(['auth'])
@@ -45,6 +45,8 @@ Route::middleware(['auth','admin'])
         Route::get('/monitoring-bimbingan/detail/{id}', [BimbinganController::class, 'show_monitoring_bimbingan'])->name('bimbingan.show-monitoring-bimbingan');
 
         Route::get('/monitoring-bimbingan/detail/{id}/show', [BimbinganController::class, 'detail_monitoring_bimbingan'])->name('bimbingan.detail-monitoring-bimbingan');
+
+        Route::get('/monitoring-bimbingan/detail/{id}/selesaikan-bimbingan', [BimbinganController::class, 'selesaikan_bimbingan'])->name('bimbingan.selesaikan-bimbingan');
     });
 
 Route::middleware(['auth','dosen'])

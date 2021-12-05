@@ -1,36 +1,46 @@
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+<section class="navbar-area">
     <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <nav class="navbar navbar-expand-lg">
 
-      <div class="navbar-header">
-        <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-          <span class="icon icon-bar"></span>
-          <span class="icon icon-bar"></span>
-          <span class="icon icon-bar"></span>
-        </button>
-        <a href="#top" class="navbar-brand smoothScroll">Informatika</a>
-      </div>
-        <div class="collapse navbar-collapse">
-          <ul class="nav navbar-nav navbar-right">
-            <li>
-              <a href="#top" class="smoothScroll"><span>Home</span></a>
-            </li>
-            @if (Auth::user())
-            <li>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a class="smoothScroll" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
-                </form>
-            </li>
-            @else
-            <li>
-                <a href="{{ route('login') }}" class="smoothScroll"><span>Login</span></a>
-            </li>
-            <li>
-            <a href="{{ route('register') }}" class="smoothScroll"><span>Register</span></a>
-            </li>
-            @endif
-          </ul>
-       </div>
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ url('logo-unib.png') }}" alt="Logo" width="100">
+                    </a>
 
-    </div>
-  </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTwo" aria-controls="navbarTwo" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarTwo">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="page-scroll" href="">Beranda</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="navbar-btn d-none d-sm-inline-block">
+                        <ul>
+                            @if (Auth::user())
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <a class="solid" href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();">
+                                            Keluar
+                                        </a>
+                                    </form>
+                                </li>
+                            @else
+                                <li><a class="solid" href="{{ route('login') }}">Masuk</a></li>
+                                <li><a class="solid" href="{{ route('register') }}">Daftar</a></li>
+                            @endif
+                        </ul>
+                    </div>
+                </nav> <!-- navbar -->
+            </div>
+        </div> <!-- row -->
+    </div> <!-- container -->
+</section>

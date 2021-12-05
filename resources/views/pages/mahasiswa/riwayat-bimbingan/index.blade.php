@@ -29,8 +29,15 @@
 @endsection
 
 @push('addon-script')
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('uraian_konsultasi');
-</script>
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    @if ($message = Session::get('success-bimbingan'))
+        <script>
+            Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '{{ $message }}'
+        })
+        </script>
+    @endif
 @endpush

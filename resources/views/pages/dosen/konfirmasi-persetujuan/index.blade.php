@@ -43,7 +43,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Dimohon Kepada saudara/i untuk kesediannya sebagai Pembimbing Utama dari mahasiswa atas</p>
+                <p>Dimohon Kepada saudara/i untuk kesediannya sebagai <b>Pembimbing Utama</b> dari mahasiswa atas</p>
                 <p>Nama : {{ $ite->mahasiswa->nama }}</p>
                 <p>NPM : {{ $ite->mahasiswa->mahasiswa->npm }}</p>
                 <p>Judul Skripsi : {{ $ite->mahasiswa->mahasiswa->judul_skripsi }}</p>
@@ -54,7 +54,7 @@
                 <form action="{{ route('bimbingan.konfirmasi_persetujuan', ['id' => $ite->id, 'tipe' => 'Pembimbing-Utama']) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                    <button type="submit" class="btn btn-primary btn-konfirmasi">Konfirmasi</button>
                 </form>
             </div>
         </div>
@@ -73,7 +73,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Dimohon Kepada saudara/i untuk kesediannya sebagai Pembimbing Pendamping dari mahasiswa atas</p>
+                <p>Dimohon Kepada saudara/i untuk kesediannya sebagai <b>Pembimbing Pendamping</b> dari mahasiswa atas</p>
                 <p>Nama : {{ $ite2->mahasiswa->nama }}</p>
                 <p>NPM : {{ $ite2->mahasiswa->mahasiswa->npm }}</p>
                 <p>Judul Skripsi : {{ $ite2->mahasiswa->mahasiswa->judul_skripsi }}</p>
@@ -84,7 +84,7 @@
                 <form action="{{ route('bimbingan.konfirmasi_persetujuan', ['id' => $ite2->id, 'tipe' => 'Pembimbing-Pendamping']) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <button type="submit" class="btn btn-primary">Konfirmasi</button>
+                    <button type="submit" class="btn btn-primary btn-konfirmasi-2">Konfirmasi</button>
                 </form>
             </div>
         </div>
@@ -98,7 +98,56 @@
         </div>
     </div>
 @endif
-
-
-
 @endsection
+
+@push('addon-script')
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    <script>
+        $('.btn-konfirmasi').on('click', function (e) {
+        e.preventDefault(); // prevent form submit
+        var form = event.target.form;
+        Swal.fire({
+        title: 'Yakin Ingin Mengkonfirmasi?',
+        text: "Data Akan Tersimpan",
+        icon: 'warning',
+        allowOutsideClick: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Simpan',
+        cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                form.submit();
+            }else {
+                Swal.fire('Data Batal Disimpan');
+            }
+        });
+    });
+    </script>
+
+<script>
+    $('.btn-konfirmasi-2').on('click', function (e) {
+    e.preventDefault(); // prevent form submit
+    var form = event.target.form;
+    Swal.fire({
+    title: 'Yakin Ingin Mengkonfirmasi?',
+    text: "Data Akan Tersimpan",
+    icon: 'warning',
+    allowOutsideClick: false,
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Simpan',
+    cancelButtonText: 'Batal'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.submit();
+        }else {
+            Swal.fire('Data Batal Disimpan');
+        }
+    });
+});
+</script>
+@endpush
