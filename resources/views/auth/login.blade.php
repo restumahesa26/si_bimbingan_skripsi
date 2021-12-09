@@ -40,13 +40,7 @@
                 </label>
             </div>
 
-            <div class="flex items-center justify-between mt-4">
-                @if (Route::has('password.request'))
-                    <a class="underline text-sm text-white hover:text-blue-900" href="{{ route('password.request') }}">
-                        {{ __('Lupa password?') }}
-                    </a>
-                @endif
-
+            <div class="flex items-center justify-end mt-4">
                 <x-button class="ml-3">
                     {{ __('Log in') }}
                 </x-button>

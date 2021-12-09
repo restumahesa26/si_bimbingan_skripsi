@@ -121,8 +121,8 @@
         <div class="d-flex justify-content-between" style="margin-top: -12px;">
             <div class="col-lg-6" style="padding-left: 20px;">
                 <p>Mahasiswa</p>
-                <p style="margin-top: 100px;"><strong>Mufti Restu Mahesa</strong> </p>
-                <p style="margin-top: -20px;">NPM : G1A019014</p>
+                <p style="margin-top: 100px;"><strong>{{ Auth::user()->nama }}</strong> </p>
+                <p style="margin-top: -20px;">NPM : {{ Auth::user()->mahasiswa->npm }}</p>
             </div>
             <div class="col-lg-6" style="padding-left: 250px;">
                 <p>Pembimbing 1</p>

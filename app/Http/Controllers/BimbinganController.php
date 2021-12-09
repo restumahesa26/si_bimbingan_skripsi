@@ -82,11 +82,13 @@ class BimbinganController extends Controller
     {
         $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->where('status_persetujuan', '1')->first();
 
-        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Terkirim')->orWhere('status', 'Dibaca')->first();
+        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Dibaca')->orWhere('status', '=', 'Terkirim')->first();
+
+        $check3 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Terkirim')->first();
 
         if ($check) {
             return view('pages.mahasiswa.pembimbing-1.index', [
-                'check' => $check2
+                'check' => $check2, 'check2' => $check3
             ]);
         }else {
             return redirect()->route('dashboard');
@@ -128,11 +130,13 @@ class BimbinganController extends Controller
     {
         $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->where('status_persetujuan', '1')->first();
 
-        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Terkirim')->orWhere('status', 'Dibaca')->first();
+        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Dibaca')->first();
+
+        $check3 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Terkirim')->first();
 
         if ($check) {
             return view('pages.mahasiswa.pembimbing-2.index', [
-                'check' => $check2
+                'check' => $check2, 'check2' => $check3
             ]);
         }else {
             return redirect()->route('dashboard');
@@ -272,10 +276,8 @@ class BimbinganController extends Controller
     {
         if ($dosen == 'Utama') {
             $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->first();
-            $nama = 'Pembimbing Utama';
         }elseif ($dosen == 'Pendamping') {
             $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
-            $nama = 'Pembimbing Pendamping';
         }
         $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
 
@@ -284,7 +286,7 @@ class BimbinganController extends Controller
                 'items' => $items, 'dosen' => $dosen
             ]);
         } else {
-            return redirect()->back()->with(['error-kartu' => 'Anda Belum Selesai Melakukan Bimbingan Dengan Dosen ' . $nama]);
+            return redirect()->back()->with(['error-kartu' => 'Jika Ingin Mencetak Kartu Bimbingan Pastikan Sudah Mencapai Ketentunan (10x) Dan Harap Konfirmasi Ke Admin']);
         }
     }
 

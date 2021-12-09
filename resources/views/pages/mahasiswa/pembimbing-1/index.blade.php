@@ -12,7 +12,7 @@
 
 <div class="card">
     <div class="card-body">
-        @if ($check)
+        @if ($check || $check2)
         <h3 class="text-danger">Bimbingan Sebelumnya Belum Diverifikasi</h3>
         @else
         <form action="{{ route('bimbingan.store_pembimbing_utama') }}" method="POST" enctype="multipart/form-data">
@@ -23,7 +23,12 @@
             </div>
             <div class="form-group">
                 <label for="bab_pembahasan">Bab Pembahasan</label>
-                <input type="text" name="bab_pembahasan" id="bab_pembahasan" class="form-control" value="{{ old('bab_pembahasan') }}" placeholder="Masukkan Bab Pembahasan">
+                <select name="bab_pembahasan" id="bab_pembahasan" class="form-control">
+                    <option hidden>-- Pilih Bab Pembahasan --</option>
+                    <option value="Bab 3">Bab 3</option>
+                    <option value="Bab 4">Bab 4</option>
+                    <option value="Bab 5">Bab 5</option>
+                </select>
                 @error('bab_pembahasan')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
