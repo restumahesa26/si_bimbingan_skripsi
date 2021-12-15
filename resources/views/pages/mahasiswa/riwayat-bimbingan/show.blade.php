@@ -3,7 +3,7 @@
 @section('content')
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <div class="d-flex justify-content-start">
-        <a href="{{ route('bimbingan.index_bimbingan') }}" class="btn btn-sm btn-primary mr-2">Kembali</a>
+        <a href="{{ route('bimbingan.riwayat-bimbingan') }}" class="btn btn-sm btn-primary mr-2">Kembali</a>
         <h1 class="h3 mb-0 text-gray-800">Bimbingan Mahasiswa</h1>
     </div>
     <ol class="breadcrumb">
@@ -46,37 +46,6 @@
         <a href="{{ asset('storage/assets/file-mahasiswa/' . $item->file_mahasiswa) }}" class="btn btn-info btn-sm" target="_blank">Download File Yang Dikirim Mahasiswa</a>
     </div>
 </div>
-@if ($item->status === 'Dibaca')
-<div class="card mt-3 mb-5">
-    <div class="card-body">
-        <form action="{{ route('bimbingan.update_bimbingan', $item->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            @method('PUT')
-            <div class="form-group">
-                <label for="komentar_dosen">Komentar Dosen</label>
-                <textarea name="komentar_dosen" id="komentar_dosen" class="form-control" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="status">Status</label>
-                <select name="status" id="status" class="form-control" required>
-                    <option value="">-- Pilih Status --</option>
-                    <option value="ACC">ACC</option>
-                    <option value="Revisi">Revisi</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="file_dosen">File</label>
-                <input type="file" name="file_dosen" id="file_dosen" class="form-control" required>
-                @error('file_dosen')
-                    <p class="text-danger">{{ $message }}</p>
-                @enderror
-            </div>
-            <button type="submit" class="btn btn-primary btn-simpan">Simpan</button>
-        </form>
-    </div>
-</div>
-@endif
-
 @if ($item->status == 'Revisi' || $item->status == 'ACC')
     <div class="card mt-3 mb-5">
         <div class="card-body">
@@ -103,47 +72,3 @@
 @endif
 
 @endsection
-
-@push('addon-script')
-    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
-
-    <script>
-        CKEDITOR.replace('komentar_dosen');
-    </script>
-
-    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
-
-    <script>
-        $('.btn-simpan').on('click', function (e) {
-            e.preventDefault(); // prevent form submit
-            var form = event.target.form;
-            Swal.fire({
-            title: 'Yakin Menyimpan Bimbingan?',
-            text: "Data Akan Tersimpan",
-            icon: 'warning',
-            allowOutsideClick: false,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Simpan',
-            cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    form.submit();
-                }else {
-                    Swal.fire('Data Batal Disimpan');
-                }
-            });
-        });
-    </script>
-
-    @if ($errors->any())
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal',
-            text: 'Perhatikan Lagi Field Yang Diisi'
-        })
-    </script>
-    @endif
-@endpush

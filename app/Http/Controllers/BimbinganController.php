@@ -16,8 +16,8 @@ class BimbinganController extends Controller
     public function set_pembimbing(Request $request)
     {
         $request->validate([
-            'dosen_pembimbing_utama' => ['required'],
-            'dosen_pembimbing_pendamping' => ['required'],
+            'dosen_pembimbing_utama' => ['required','numeric'],
+            'dosen_pembimbing_pendamping' => ['required','numeric'],
             'judul_skripsi' => ['required', 'string', 'max:255'],
         ]);
 
@@ -228,6 +228,15 @@ class BimbinganController extends Controller
 
         return view('pages.mahasiswa.riwayat-bimbingan.index', [
             'items' => $items
+        ]);
+    }
+
+    public function detail_riwayat_bimbingan($id)
+    {
+        $item = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('id', $id)->first();
+
+        return view('pages.mahasiswa.riwayat-bimbingan.show', [
+            'item' => $item
         ]);
     }
 

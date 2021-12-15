@@ -78,6 +78,8 @@ Route::middleware(['auth','mahasiswa'])
 
         Route::get('/riwayat-bimbingan/mahasiswa', [BimbinganController::class, 'riwayat_bimbingan'])->name('bimbingan.riwayat-bimbingan');
 
+        Route::get('/riwayat-bimbingan/mahasiswa/detail-{id}', [BimbinganController::class, 'detail_riwayat_bimbingan'])->name('bimbingan.detail-riwayat-bimbingan');
+
         Route::get('/kartu-bimbingan', [BimbinganController::class, 'kartu_bimbingan'])->name('bimbingan.kartu-bimbingan');
 
         Route::get('/kartu-bimbingan/show/{dosen}', [BimbinganController::class, 'show_kartu_bimbingan'])->name('bimbingan.show-kartu-bimbingan');

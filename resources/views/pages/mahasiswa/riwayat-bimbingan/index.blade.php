@@ -17,6 +17,7 @@
         <h5>Tanggal Kirim : {{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}</h5>
         <h5>Topik Pembahasan : {{ $item->bab_pembahasan }}</h5>
         <h5>Status : <span class="text-primary">{{ $item->status }}</span></h5>
+        <a href="{{ route('bimbingan.detail-riwayat-bimbingan', $item->id) }}" class="btn btn-info">Detail Bimbingan</a>
     </div>
 </div>
 @empty

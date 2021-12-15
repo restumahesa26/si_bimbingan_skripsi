@@ -115,7 +115,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="dosen_pembimbing_utama">Dosen Pembimbing Utama</label>
-                            <select name="dosen_pembimbing_utama" id="dosen_pembimbing_utama" class="form-control">
+                            <select name="dosen_pembimbing_utama" id="dosen_pembimbing_utama" class="form-control" required>
                                 <option hidden>-- Pilih Dosen Pembimbing Utama --</option>
                                 @foreach ($dosens as $item_dosen_utama)
                                     <option value="{{ $item_dosen_utama->user->id }}" @if(old('dosen_pembimbing_utama') == $item_dosen_utama->user->id) selected @endif>{{ $item_dosen_utama->user->nama }}</option>
@@ -126,7 +126,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="dosen_pembimbing_pendamping">Dosen Pembimbing Pendamping</label>
-                            <select name="dosen_pembimbing_pendamping" id="dosen_pembimbing_pendamping" class="form-control">
+                            <select name="dosen_pembimbing_pendamping" id="dosen_pembimbing_pendamping" class="form-control" required>
                                 <option hidden>-- Pilih Dosen Pembimbing Pendamping --</option>
                                 @foreach ($dosens as $item_dosen_pendamping)
                                     <option value="{{ $item_dosen_pendamping->user->id }}" @if(old('dosen_pembimbing_pendamping') == $item_dosen_pendamping->user->id) selected @endif>{{ $item_dosen_pendamping->user->nama }}</option>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="form-group">
                     <label for="judul_skripsi">Judul Skripsi</label>
-                    <input type="text" name="judul_skripsi" id="judul_skripsi" class="form-control" value="{{ old('judul_skripsi') }}" placeholder="Masukkan Judul Skripsi">
+                    <input type="text" name="judul_skripsi" id="judul_skripsi" class="form-control" value="{{ old('judul_skripsi') }}" placeholder="Masukkan Judul Skripsi" required>
                 </div>
                 <button type="submit" class="btn btn-primary btn-simpan">Simpan</button>
             </form>

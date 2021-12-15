@@ -23,7 +23,7 @@
             </div>
             <div class="form-group">
                 <label for="bab_pembahasan">Bab Pembahasan</label>
-                <select name="bab_pembahasan" id="bab_pembahasan" class="form-control">
+                <select name="bab_pembahasan" id="bab_pembahasan" class="form-control" required>
                     <option hidden>-- Pilih Bab Pembahasan --</option>
                     <option value="Bab 3">Bab 3</option>
                     <option value="Bab 4">Bab 4</option>
@@ -35,14 +35,14 @@
             </div>
             <div class="form-group">
                 <label for="uraian_konsultasi">Uraian Konsultasi</label>
-                <textarea name="uraian_konsultasi" id="uraian_konsultasi" class="form-control">{{ old('uraian_konsultasi') }}</textarea>
+                <textarea name="uraian_konsultasi" id="uraian_konsultasi" class="form-control" required>{{ old('uraian_konsultasi') }}</textarea>
                 @error('uraian_konsultasi')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
             <div class="form-group">
                 <label for="file_mahasiswa">File Bimbingan</label>
-                <input type="file" name="file_mahasiswa" id="file_mahasiswa" class="form-control">
+                <input type="file" name="file_mahasiswa" id="file_mahasiswa" class="form-control" required>
                 @error('file_mahasiswa')
                     <p class="text-danger">{{ $message }}</p>
                 @enderror

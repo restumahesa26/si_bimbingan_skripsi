@@ -80,7 +80,7 @@
                 if (result.isConfirmed) {
                     window.location.href = form;
                 }else {
-                    Swal.fire('Data Batal Disimpan');
+                    //
                 }
             });
         });
