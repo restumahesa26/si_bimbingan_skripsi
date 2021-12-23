@@ -144,22 +144,6 @@
         </div>
     </div>
 @endif
-
-@if (Auth::user()->role === 'MAHASISWA' && Auth::user()->dosen_utama && Auth::user()->dosen_utama->status_persetujuan === '0' )
-    <div class="card mt-3">
-        <div class="card-body">
-            <h4 class="text-danger">Dosen Pembimbing Utama Belum Menkonfirmasi</h4>
-        </div>
-    </div>
-@endif
-
-@if (Auth::user()->role === 'MAHASISWA' && Auth::user()->dosen_pendamping && Auth::user()->dosen_pendamping->status_persetujuan === '0' )
-    <div class="card mt-3">
-        <div class="card-body">
-            <h4 class="text-danger">Dosen Pembimbing Pendamping Belum Menkonfirmasi</h4>
-        </div>
-    </div>
-@endif
 @endsection
 
 @push('addon-script')
@@ -190,6 +174,16 @@
     </script>
 
     @if ($message = Session::get('success-login'))
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: '{{ $message }}'
+        })
+    </script>
+    @endif
+
+    @if ($message = Session::get('success'))
     <script>
         Swal.fire({
             icon: 'success',

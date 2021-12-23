@@ -57,7 +57,6 @@
                 </tbody>
             </table>
         </div>
-        @if (Auth::user()->mahasiswa->status_bimbingan === 'Selesai')
         <div class="text-center mt-3">
             <button type="button" class="btn btn-primary px-5" data-toggle="modal" data-target="#exampleModal">
                 Cetak
@@ -76,13 +75,26 @@
                             <p>Jika kamu mencetak kartu bimbingan ini maka kamu dinyatakan telah selesai melakukan bimbingan skripsi.</p>
                         </div>
                         <div class="modal-footer">
-                            <a href="{{ route('bimbingan.cetak-kartu-bimbingan', $dosen) }}" class="btn btn-primary px-5" target="_blank">Cetak</a>
+                            <a href="{{ route('bimbingan.cetak-kartu-bimbingan', $dosen) }}" class="btn btn-primary px-5">Cetak</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        @endif
     </div>
 </div>
 @endsection
+
+@push('addon-script')
+    <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>
+
+    @if ($message = Session::get('error'))
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: '{{ $message }}'
+        })
+    </script>
+    @endif
+@endpush

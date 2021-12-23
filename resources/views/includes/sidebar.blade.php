@@ -51,7 +51,7 @@
     <li class="nav-item @if ( Route::is('bimbingan.show_konfirmasi_persetujuan')) active @endif">
         <a class="nav-link" href="{{ route('bimbingan.show_konfirmasi_persetujuan') }}">
             <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Konfirmasi Persetujuan</span></a>
+            <span>Pemberitahuan</span></a>
     </li>
     <li class="nav-item @if ( Route::is('bimbingan.index_bimbingan') || Route::is('bimbingan.detail_bimbingan')) active @endif">
         <a class="nav-link" href="{{ route('bimbingan.index_bimbingan') }}">
@@ -64,7 +64,7 @@
             <span>Riwayat Bimbingan</span></a>
     </li>
     @endif
-    @if (Auth::user()->role === 'MAHASISWA' && Auth::user()->dosen_utama != NULL && Auth::user()->dosen_pendamping != NULL && Auth::user()->dosen_utama->status_persetujuan == 1 && Auth::user()->dosen_pendamping->status_persetujuan == 1)
+    @if (Auth::user()->role === 'MAHASISWA' && Auth::user()->dosen_utama != NULL && Auth::user()->dosen_pendamping != NULL )
     @if (Auth::user()->role === 'MAHASISWA')
     <li class="nav-item @if ( Route::is('bimbingan.show_pembimbing_utama') || Route::is('bimbingan.show_pembimbing_pendamping') || Route::is('bimbingan.riwayat-bimbingan') ) active @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"

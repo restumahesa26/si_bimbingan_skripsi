@@ -110,6 +110,6 @@ class ProfileController extends Controller
             $item->save();
         }
 
-        return redirect()->route('profile.edit');
+        return redirect()->route('profile.edit')->with(['success' => 'Berhasil Mengupdate Profile']);
     }
 }

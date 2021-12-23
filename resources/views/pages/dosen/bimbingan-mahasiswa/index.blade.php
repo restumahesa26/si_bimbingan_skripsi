@@ -11,36 +11,40 @@
 
 <div class="card">
     <div class="card-body">
-        <div class="table table-responsive">
-            <table class="table table-bordered text-nowrap" id="table">
-                <thead>
-                    <tr class="text-center">
-                        <th>No</th>
-                        <th>NPM</th>
-                        <th>Nama</th>
-                        <th>Tanggal</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @forelse ($items as $item)
-                    <tr class="text-center">
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $item->mahasiswa->mahasiswa->npm }}</td>
-                        <td>{{ $item->mahasiswa->nama }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}</td>
-                        <td>{{ $item->status }}</td>
-                        <td>
-                            <a href="{{ route('bimbingan.detail_bimbingan', $item->id) }}" class="btn btn-sm btn-primary">Lihat Detail</a>
-                        </td>
-                    </tr>
-                    @empty
+        @if ($items->count() >= 1)
+            <div class="table table-responsive">
+                <table class="table table-bordered text-nowrap" id="table">
+                    <thead>
+                        <tr class="text-center">
+                            <th>No</th>
+                            <th>NPM</th>
+                            <th>Nama</th>
+                            <th>Tanggal</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($items as $item)
+                        <tr class="text-center">
+                            <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item->mahasiswa->mahasiswa->npm }}</td>
+                            <td>{{ $item->mahasiswa->nama }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->created_at)->format('d F Y') }}</td>
+                            <td>{{ $item->status }}</td>
+                            <td>
+                                <a href="{{ route('bimbingan.detail_bimbingan', $item->id) }}" class="btn btn-sm btn-primary">Lihat Detail</a>
+                            </td>
+                        </tr>
+                        @empty
 
-                    @endforelse
-                </tbody>
-            </table>
-        </div>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <h4>Belum terdapat bimbingan dari mahasiswa.</h4>
+        @endif
     </div>
 </div>
 @endsection

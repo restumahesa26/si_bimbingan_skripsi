@@ -41,14 +41,14 @@ class BimbinganController extends Controller
             ]);
         }
 
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard')->with(['success' => 'Berhasil Mengset Dosen Pembimbing Utama dan Dosen Pembimbing Pendamping']);
     }
 
     public function show_konfirmasi_persetujuan()
     {
-        $items = PembimbingUtama::where('dosen_id', Auth::user()->id)->where('status_persetujuan', '0')->get();
+        $items = PembimbingUtama::where('dosen_id', Auth::user()->id)->get();
 
-        $items2 = PembimbingPendamping::where('dosen_id', Auth::user()->id)->where('status_persetujuan', '0')->get();
+        $items2 = PembimbingPendamping::where('dosen_id', Auth::user()->id)->get();
 
         if ($items->count() > 0 || $items2->count() > 0) {
             return view('pages.dosen.konfirmasi-persetujuan.index', [
@@ -80,7 +80,7 @@ class BimbinganController extends Controller
 
     public function show_pembimbing_1()
     {
-        $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->where('status_persetujuan', '1')->first();
+        $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->first();
 
         $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Dibaca')->orWhere('status', '=', 'Terkirim')->first();
 
@@ -128,7 +128,7 @@ class BimbinganController extends Controller
 
     public function show_pembimbing_2()
     {
-        $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->where('status_persetujuan', '1')->first();
+        $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
 
         $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Dibaca')->first();
 
@@ -290,13 +290,9 @@ class BimbinganController extends Controller
         }
         $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
 
-        if (Auth::user()->mahasiswa->status_bimbingan === 'Selesai') {
-            return view('pages.mahasiswa.kartu-bimbingan.show', [
-                'items' => $items, 'dosen' => $dosen
-            ]);
-        } else {
-            return redirect()->back()->with(['error-kartu' => 'Jika Ingin Mencetak Kartu Bimbingan Pastikan Sudah Mencapai Ketentunan (10x) Dan Harap Konfirmasi Ke Admin']);
-        }
+        return view('pages.mahasiswa.kartu-bimbingan.show', [
+            'items' => $items, 'dosen' => $dosen
+        ]);
     }
 
     public function cetak_kartu($dosen)
@@ -307,13 +303,14 @@ class BimbinganController extends Controller
             $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
         }
         $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
+        $count = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->count();
 
-        if (Auth::user()->mahasiswa->status_bimbingan === 'Selesai') {
+        if ($count >= 8) {
             return view('pages.mahasiswa.kartu-bimbingan.kartu', [
                 'items' => $items, 'dosen' => $dosen
             ]);
         } else {
-            return redirect()->back();
+            return redirect()->back()->with(['error' => 'Harus Melakukan Bimbingan Minimal 8x Pertemuan']);
         }
     }
 

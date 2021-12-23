@@ -17,7 +17,6 @@ class CreatePembimbingUtamasTable extends Migration
             $table->id();
             $table->foreignId('dosen_id')->references('id')->on('users');
             $table->foreignId('mahasiswa_id')->references('id')->on('users');
-            $table->enum('status_persetujuan', ['0','1'])->default('0');
             $table->timestamps();
         });
     }

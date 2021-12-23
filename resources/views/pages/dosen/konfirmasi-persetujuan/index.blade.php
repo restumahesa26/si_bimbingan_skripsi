@@ -13,7 +13,7 @@
 @foreach ($items as $item)
 <div class="card w-50">
     <div class="card-body">
-        <p>Prodi memilih kesediaan anda menjadi Dosen Pembimbing Utama untuk Mahasiswa {{ $item->mahasiswa->nama }}</p>
+        <p>Prodi memilih kesediaan anda menjadi <b>Dosen Pembimbing Utama</b> untuk Mahasiswa {{ $item->mahasiswa->nama }}</p>
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalUtama">
             Lihat Detail
         </button>
@@ -24,7 +24,7 @@
 @foreach ($items2 as $item2)
 <div class="card w-50 mt-3">
     <div class="card-body">
-        <p>Prodi memilih kesediaan anda menjadi Dosen Pembimbing Pendamping untuk Mahasiswa {{ $item2->mahasiswa->nama }}</p>
+        <p>Prodi memilih kesediaan anda menjadi <b>Dosen Pembimbing Pendamping</b> untuk Mahasiswa {{ $item2->mahasiswa->nama }}</p>
         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modalPendamping">
             Lihat Detail
         </button>
@@ -50,13 +50,6 @@
                 <br>
                 <p>Atas perhatiannya kami ucapkan terima kasih.</p>
             </div>
-            <div class="modal-footer">
-                <form action="{{ route('bimbingan.konfirmasi_persetujuan', ['id' => $ite->id, 'tipe' => 'Pembimbing-Utama']) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit" class="btn btn-primary btn-konfirmasi">Konfirmasi</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
@@ -80,13 +73,6 @@
                 <br>
                 <p>Atas perhatiannya kami ucapkan terima kasih.</p>
             </div>
-            <div class="modal-footer">
-                <form action="{{ route('bimbingan.konfirmasi_persetujuan', ['id' => $ite2->id, 'tipe' => 'Pembimbing-Pendamping']) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <button type="submit" class="btn btn-primary btn-konfirmasi-2">Konfirmasi</button>
-                </form>
-            </div>
         </div>
     </div>
 </div>
@@ -94,7 +80,7 @@
 @else
     <div class="card">
         <div class="card-body">
-            <h4>Tidak ada konfirmasi persetujuan</h4>
+            <h4>Tidak ada sebagai Dosen Pembimbing Utama dan Dosen Pembimbing Pendamping</h4>
         </div>
     </div>
 @endif
