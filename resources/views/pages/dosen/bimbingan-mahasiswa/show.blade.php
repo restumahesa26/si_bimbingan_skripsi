@@ -71,6 +71,18 @@
                     <p class="text-danger">{{ $message }}</p>
                 @enderror
             </div>
+            <div class="form-group">
+                <label class="" for="">Silahkan membuat tandatangan  :
+                </label>
+                <br/>
+                <div id="sig" style="width: 350px;"></div>
+                <br/>
+                <button id="clear" class="btn btn-danger btn-sm">Hapus
+                    Tandatangan
+                </button>
+                <textarea id="signature64" name="tanda_tangan" style="display: none">
+                </textarea>
+            </div>
             <button type="submit" class="btn btn-primary btn-simpan">Simpan</button>
         </form>
     </div>
@@ -96,6 +108,14 @@
                     <label for="" class="text-danger">{{ $item->status }}</label>
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label for="">Tanda Tangan</label>
+                </div>
+                <div class="col-8">
+                    <img src="{{ asset('tanda-tangan/' . $item->tanda_tangan) }}" alt="">
+                </div>
+            </div>
             <a href="{{ asset('storage/assets/file-dosen/' . $item->file_dosen) }}" class="btn btn-info" target="_blank">Lihat File Yang Dikirim Dosen</a>
 
         </div>
@@ -104,11 +124,51 @@
 
 @endsection
 
+@push('addon-style')
+    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+    <link type="text/css"
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+    <style>
+        .kbw-signature {
+            width: 100%;
+            height: 200px;
+        }
+        #sig canvas{
+            width: 100% !important;
+            height: auto;
+        }
+    </style>
+@endpush
+
 @push('addon-script')
     <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+    <script type="text/javascript"
+     src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+     <script type="text/javascript"
+       src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js">
+    </script>
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js">
+    </script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
     <script>
         CKEDITOR.replace('komentar_dosen');
+    </script>
+
+    <script>
+        var sig = $('#sig').signature(
+            {
+                syncField: '#signature64',
+                syncFormat: 'PNG'
+            }
+        );
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
     </script>
 
     <script src="{{ url('js/sweetalert2.all.min.js') }}"></script>

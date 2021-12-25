@@ -82,9 +82,9 @@ class BimbinganController extends Controller
     {
         $check = PembimbingUtama::where('mahasiswa_id', Auth::user()->id)->first();
 
-        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Dibaca')->orWhere('status', '=', 'Terkirim')->first();
+        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', 'Dibaca')->orWhere('status', '=', 'Terkirim')->latest()->first();
 
-        $check3 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Terkirim')->first();
+        $check3 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->latest()->where('dosen_id', $check->dosen_id)->where('status', '=', 'Terkirim')->first();
 
         if ($check) {
             return view('pages.mahasiswa.pembimbing-1.index', [
@@ -130,9 +130,9 @@ class BimbinganController extends Controller
     {
         $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
 
-        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Dibaca')->first();
+        $check2 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Dibaca')->latest()->first();
 
-        $check3 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Terkirim')->first();
+        $check3 = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->where('status', '=', 'Terkirim')->latest()->first();
 
         if ($check) {
             return view('pages.mahasiswa.pembimbing-2.index', [
@@ -176,7 +176,7 @@ class BimbinganController extends Controller
 
     public function index_bimbingan()
     {
-        $items = Bimbingan::where('dosen_id', Auth::user()->id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->get();
+        $items = Bimbingan::where('dosen_id', Auth::user()->id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->latest()->get();
 
         return view('pages.dosen.bimbingan-mahasiswa.index', [
             'items' => $items
@@ -199,12 +199,13 @@ class BimbinganController extends Controller
 
     public function update_bimbingan(Request $request, $id)
     {
-        $item = Bimbingan::where('dosen_id', Auth::user()->id)->where('id', $id)->first();
+        $item = Bimbingan::where('dosen_id', Auth::user()->id)->where('id', $id)->latest()->first();
 
         $request->validate([
             'komentar_dosen' => ['required', 'string'],
             'status' => ['required', 'in:ACC,Revisi'],
-            'file_dosen' => ['required', 'mimes:pdf', 'max:1048']
+            'file_dosen' => ['required', 'mimes:pdf', 'max:1048'],
+            'tanda_tangan' => ['required']
         ]);
 
         if ($request->file('file_dosen')) {
@@ -214,17 +215,33 @@ class BimbinganController extends Controller
             Storage::putFileAs('public/assets/file-dosen', $value, $fileNames);
         }
 
+        $folderPath = public_path('tanda-tangan/');
+
+        $image_parts = explode(";base64,", $request->tanda_tangan);
+
+        $image_type_aux = explode("image/", $image_parts[0]);
+
+        $image_type = $image_type_aux[1];
+
+        $sign_name = uniqid() . '.'.$image_type;
+
+        $image_base64 = base64_decode($image_parts[1]);
+
+        $file = $folderPath . $sign_name;
+        file_put_contents($file, $image_base64);
+
         $item->status = $request->status;
         $item->komentar_dosen = $request->komentar_dosen;
         $item->file_dosen = $fileNames;
+        $item->tanda_tangan = $sign_name;
         $item->save();
 
-        return redirect()->route('bimbingan.index_bimbingan');
+        return redirect()->route('bimbingan.index_bimbingan')->with(['success-balas-bimbingan' => 'Berhasil Mengirim Balasan Bimbingan']);
     }
 
     public function riwayat_bimbingan()
     {
-        $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->get();
+        $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->latest()->get();
 
         return view('pages.mahasiswa.riwayat-bimbingan.index', [
             'items' => $items
@@ -242,7 +259,7 @@ class BimbinganController extends Controller
 
     public function riwayat_bimbingan_dosen()
     {
-        $items = Bimbingan::where('dosen_id', Auth::user()->id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->get();
+        $items = Bimbingan::where('dosen_id', Auth::user()->id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->latest()->get();
 
         return view('pages.dosen.riwayat-bimbingan.index', [
             'items' => $items
@@ -260,7 +277,7 @@ class BimbinganController extends Controller
 
     public function show_monitoring_bimbingan($id)
     {
-        $items =  Bimbingan::where('mahasiswa_id', $id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->get();
+        $items =  Bimbingan::where('mahasiswa_id', $id)->orderByRaw("FIELD(status , 'Terkirim', 'Dibaca', 'Revisi', 'ACC') ASC")->latest()->get();
 
         return view('pages.admin.monitoring-bimbingan.show', [
             'items' => $items

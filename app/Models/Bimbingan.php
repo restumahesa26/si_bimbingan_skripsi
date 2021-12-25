@@ -10,7 +10,7 @@ class Bimbingan extends Model
     use HasFactory;
 
     protected $fillable = [
-        'dosen_id', 'mahasiswa_id', 'bab_pembahasan', 'uraian_konsultasi', 'file_mahasiswa', 'file_dosen', 'komentar_dosen', 'status'
+        'dosen_id', 'mahasiswa_id', 'bab_pembahasan', 'uraian_konsultasi', 'file_mahasiswa', 'file_dosen', 'komentar_dosen', 'status', 'tanda_tangan'
     ];
 
     public function dosen()

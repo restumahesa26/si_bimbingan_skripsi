@@ -10,6 +10,8 @@
     <link href="img/logo/logo.png" rel="icon">
     <title>SI Bimbingan Skripsi</title>
 
+    @stack('addon-style')
+
     @include('includes.style')
 
 </head>

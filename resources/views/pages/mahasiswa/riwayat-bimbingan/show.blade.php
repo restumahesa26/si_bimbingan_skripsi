@@ -65,6 +65,14 @@
                     <label for="" class="text-danger">{{ $item->status }}</label>
                 </div>
             </div>
+            <div class="form-group row">
+                <div class="col-2">
+                    <label for="">Tanda Tangan</label>
+                </div>
+                <div class="col-8">
+                    <img src="{{ asset('tanda-tangan/' . $item->tanda_tangan) }}" alt="">
+                </div>
+            </div>
             <a href="{{ asset('storage/assets/file-dosen/' . $item->file_dosen) }}" class="btn btn-info" target="_blank">Lihat File Yang Dikirim Dosen</a>
 
         </div>
