@@ -305,7 +305,7 @@ class BimbinganController extends Controller
         }elseif ($dosen == 'Pendamping') {
             $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
         }
-        $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
+        $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->oldest()->get();
 
         return view('pages.mahasiswa.kartu-bimbingan.show', [
             'items' => $items, 'dosen' => $dosen
@@ -319,10 +319,10 @@ class BimbinganController extends Controller
         }elseif ($dosen == 'Pendamping') {
             $check = PembimbingPendamping::where('mahasiswa_id', Auth::user()->id)->first();
         }
-        $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->get();
+        $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->oldest()->get();
         $count = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->count();
 
-        if ($count >= 8) {
+        if ($count < 8) {
             return view('pages.mahasiswa.kartu-bimbingan.kartu', [
                 'items' => $items, 'dosen' => $dosen
             ]);

@@ -94,21 +94,21 @@
                 <table class="table-bordered mx-auto w-100">
                     <thead>
                         <tr>
-                            <th>No</th>
+                            <th class="text-center">No</th>
                             <th>Tanggal</th>
                             <th>Topik Pembahasan</th>
                             <th>Uraian Konsultasi</th>
-                            <th>Status</th>
+                            <th class="text-center">Tanda Tangan</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($items as $item)
                         <tr>
-                            <td>{{ $loop->iteration }}</td>
+                            <td class="text-center">{{ $loop->iteration }}</td>
                             <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d F Y') }}</td>
                             <td>{{ $item->bab_pembahasan }}</td>
                             <td style="padding-bottom: 0px">{!! $item->uraian_konsultasi !!}</td>
-                            <td>{{ $item->status }}</td>
+                            <td class="text-center"><img src="{{ asset('tanda-tangan/' . $item->tanda_tangan) }}" alt="" width="100"></td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-end">
-            <p style="padding-right: 150px; margin-top: 10px;">Bengkulu, 8 November 2021</p>
+            <p style="padding-right: 150px; margin-top: 10px;">Bengkulu, {{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}</p>
         </div>
         <div class="d-flex justify-content-between" style="margin-top: -12px;">
             <div class="col-lg-6" style="padding-left: 20px;">

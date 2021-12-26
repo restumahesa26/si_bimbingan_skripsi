@@ -37,7 +37,7 @@
                         <th>Tanggal Bimbingan</th>
                         <th>Topik Pembahasan</th>
                         <th>Uraian Konsul</th>
-                        <th>Status</th>
+                        <th>Tanda Tangan</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,7 +47,7 @@
                         <td>{{ Carbon\Carbon::parse($item->created_at)->translatedFormat('l, d F Y') }}</td>
                         <td>{{ $item->bab_pembahasan }}</td>
                         <td>{!! $item->uraian_konsultasi !!}</td>
-                        <td>{{ $item->status }}</td>
+                        <td class="text-center"><img src="{{ asset('tanda-tangan/' . $item->tanda_tangan) }}" alt="" width="100"></td>
                     </tr>
                     @empty
                     <tr class="text-center">
