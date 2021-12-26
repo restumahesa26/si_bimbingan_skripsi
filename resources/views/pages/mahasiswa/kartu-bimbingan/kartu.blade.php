@@ -126,8 +126,13 @@
             </div>
             <div class="col-lg-6" style="padding-left: 250px;">
                 <p>Pembimbing 1</p>
-                <p style="margin-top: 100px;"><strong>Arie Vatresia</strong></p>
-                <p style="margin-top: -20px;">NIP : 1234567891011</p>
+                @if ($dosen == 'Utama')
+                    <p style="margin-top: 100px;"><strong>{{ Auth::user()->dosen_utama->dosen->nama }}</strong></p>
+                    <p style="margin-top: -20px;">NIP : {{ Auth::user()->dosen_utama->dosen->dosen->nip }}</p>
+                @else
+                <p style="margin-top: 100px;"><strong>{{ Auth::user()->dosen_pendamping->dosen->nama }}</strong></p>
+                <p style="margin-top: -20px;">NIP : {{ Auth::user()->dosen_pendamping->dosen->dosen->nip }}</p>
+                @endif
             </div>
         </div>
     </div>

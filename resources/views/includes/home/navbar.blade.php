@@ -17,7 +17,10 @@
                     <div class="collapse navbar-collapse sub-menu-bar" id="navbarTwo">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item active">
-                                <a class="page-scroll" href="">Beranda</a>
+                                <a class="page-scroll" href="{{ route('home') }}">Beranda</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="page-scroll" href="{{ route('dashboard') }}">Dashboard</a>
                             </li>
                         </ul>
                     </div>
