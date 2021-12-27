@@ -322,7 +322,7 @@ class BimbinganController extends Controller
         $items = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->oldest()->get();
         $count = Bimbingan::where('mahasiswa_id', Auth::user()->id)->where('dosen_id', $check->dosen_id)->count();
 
-        if ($count < 8) {
+        if ($count >= 8) {
             return view('pages.mahasiswa.kartu-bimbingan.kartu', [
                 'items' => $items, 'dosen' => $dosen
             ]);
