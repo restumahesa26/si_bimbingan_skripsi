@@ -9,6 +9,29 @@
     </ol>
 </div>
 @if (Auth::user()->role === 'ADMIN')
+<div class="d-flex-justify-content-start">
+    <label for="filter">Filter Berdasarkan Bulan</label>
+    <form action="{{ route('filter-dashboard') }}" method="GET" class="form-inline mb-3">
+        <div class="form-group">
+            <select name="filter" id="filter" class="form-control mr-3">
+                <option value="" hidden>-- Pilih Bulan --</option>
+                <option value="01">Januari</option>
+                <option value="02">Februari</option>
+                <option value="03">Maret</option>
+                <option value="04">April</option>
+                <option value="05">Mei</option>
+                <option value="06">Juni</option>
+                <option value="07">Juli</option>
+                <option value="08">Agustus</option>
+                <option value="09">September</option>
+                <option value="10">Oktober</option>
+                <option value="11">November</option>
+                <option value="12">Desember</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</div>
 <div class="row mb-3">
     <!-- Earnings (Monthly) Card Example -->
     <div class="col-xl-3 col-md-6 mb-4">

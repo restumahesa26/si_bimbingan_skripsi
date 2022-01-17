@@ -34,6 +34,8 @@ Route::middleware(['auth'])
 
 Route::middleware(['auth','admin'])
     ->group(function() {
+        Route::get('/dashboard/filter-berdasarkan-bulan-', [DashboardController::class, 'filter_dashboard'])->name('filter-dashboard');
+
         Route::resource('data-mahasiswa', MahasiswaController::class);
 
         Route::resource('data-dosen', DosenController::class);
